@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            height: calc(97vh);
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/DaerahAliranSungaiProgo_1.js"></script>
+        <script src="data/DaerahAliranSungaiOpak_2.js"></script>
+        <script src="data/DaerahAliranSungaiSerang_3.js"></script>
+        <script src="data/JaringanSungaiOrde1_4.js"></script>
+        <script src="data/JaringanSungaiOrde2_5.js"></script>
+        <script src="data/JaringanSungaiOrde3_6.js"></script>
+        <script src="data/JaringanSungaiProgoOrde4_7.js"></script>
+        <script src="data/JaringanSungaiOpakOrde4_8.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:15, minZoom:1
+        }).fitBounds([[-8.001201248481262,109.80819584027687],[-7.166606913465429,110.93566209869722]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        document.querySelector(".leaflet-popup-pane").addEventListener("load", function(event) {
+          var tagName = event.target.tagName,
+            popup = map._popup;
+          // Also check if flag is already set.
+          if (tagName === "IMG" && popup && !popup._updated) {
+            popup._updated = true; // Set flag to prevent looping.
+            popup.update();
+          }
+        }, true);
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatelite_0');
+        map.getPane('pane_GoogleSatelite_0').style.zIndex = 400;
+        var layer_GoogleSatelite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatelite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 15,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GoogleSatelite_0;
+        map.addLayer(layer_GoogleSatelite_0);
+        function pop_DaerahAliranSungaiProgo_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama DAS</th>\
+                        <td>' + (feature.properties['Nama DAS'] !== null ? autolinker.link(feature.properties['Nama DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td>' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_DaerahAliranSungaiProgo_1_0() {
+            return {
+                pane: 'pane_DaerahAliranSungaiProgo_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,204,204,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DaerahAliranSungaiProgo_1');
+        map.getPane('pane_DaerahAliranSungaiProgo_1').style.zIndex = 401;
+        map.getPane('pane_DaerahAliranSungaiProgo_1').style['mix-blend-mode'] = 'normal';
+        var layer_DaerahAliranSungaiProgo_1 = new L.geoJson(json_DaerahAliranSungaiProgo_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DaerahAliranSungaiProgo_1',
+            layerName: 'layer_DaerahAliranSungaiProgo_1',
+            pane: 'pane_DaerahAliranSungaiProgo_1',
+            onEachFeature: pop_DaerahAliranSungaiProgo_1,
+            style: style_DaerahAliranSungaiProgo_1_0,
+        });
+        bounds_group.addLayer(layer_DaerahAliranSungaiProgo_1);
+        map.addLayer(layer_DaerahAliranSungaiProgo_1);
+        function pop_DaerahAliranSungaiOpak_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama DAS</th>\
+                        <td>' + (feature.properties['Nama DAS'] !== null ? autolinker.link(feature.properties['Nama DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td>' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_DaerahAliranSungaiOpak_2_0() {
+            return {
+                pane: 'pane_DaerahAliranSungaiOpak_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,204,204,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DaerahAliranSungaiOpak_2');
+        map.getPane('pane_DaerahAliranSungaiOpak_2').style.zIndex = 402;
+        map.getPane('pane_DaerahAliranSungaiOpak_2').style['mix-blend-mode'] = 'normal';
+        var layer_DaerahAliranSungaiOpak_2 = new L.geoJson(json_DaerahAliranSungaiOpak_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DaerahAliranSungaiOpak_2',
+            layerName: 'layer_DaerahAliranSungaiOpak_2',
+            pane: 'pane_DaerahAliranSungaiOpak_2',
+            onEachFeature: pop_DaerahAliranSungaiOpak_2,
+            style: style_DaerahAliranSungaiOpak_2_0,
+        });
+        bounds_group.addLayer(layer_DaerahAliranSungaiOpak_2);
+        map.addLayer(layer_DaerahAliranSungaiOpak_2);
+        function pop_DaerahAliranSungaiSerang_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nama DAS</th>\
+                        <td>' + (feature.properties['Nama DAS'] !== null ? autolinker.link(feature.properties['Nama DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td>' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_DaerahAliranSungaiSerang_3_0() {
+            return {
+                pane: 'pane_DaerahAliranSungaiSerang_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,204,204,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DaerahAliranSungaiSerang_3');
+        map.getPane('pane_DaerahAliranSungaiSerang_3').style.zIndex = 403;
+        map.getPane('pane_DaerahAliranSungaiSerang_3').style['mix-blend-mode'] = 'normal';
+        var layer_DaerahAliranSungaiSerang_3 = new L.geoJson(json_DaerahAliranSungaiSerang_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DaerahAliranSungaiSerang_3',
+            layerName: 'layer_DaerahAliranSungaiSerang_3',
+            pane: 'pane_DaerahAliranSungaiSerang_3',
+            onEachFeature: pop_DaerahAliranSungaiSerang_3,
+            style: style_DaerahAliranSungaiSerang_3_0,
+        });
+        bounds_group.addLayer(layer_DaerahAliranSungaiSerang_3);
+        map.addLayer(layer_DaerahAliranSungaiSerang_3);
+        function pop_JaringanSungaiOrde1_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nm Sungai</th>\
+                        <td class="visible-with-data" id="Nm Sungai">' + (feature.properties['Nm Sungai'] !== null ? autolinker.link(feature.properties['Nm Sungai'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang</th>\
+                        <td class="visible-with-data" id="Panjang">' + (feature.properties['Panjang'] !== null ? autolinker.link(feature.properties['Panjang'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Orde</th>\
+                        <td class="visible-with-data" id="Orde">' + (feature.properties['Orde'] !== null ? autolinker.link(feature.properties['Orde'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DAS</th>\
+                        <td class="visible-with-data" id="DAS">' + (feature.properties['DAS'] !== null ? autolinker.link(feature.properties['DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td class="visible-with-data" id="WS">' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_JaringanSungaiOrde1_4_0() {
+            return {
+                pane: 'pane_JaringanSungaiOrde1_4',
+                opacity: 1,
+                color: 'rgba(10,147,252,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JaringanSungaiOrde1_4');
+        map.getPane('pane_JaringanSungaiOrde1_4').style.zIndex = 404;
+        map.getPane('pane_JaringanSungaiOrde1_4').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanSungaiOrde1_4 = new L.geoJson(json_JaringanSungaiOrde1_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JaringanSungaiOrde1_4',
+            layerName: 'layer_JaringanSungaiOrde1_4',
+            pane: 'pane_JaringanSungaiOrde1_4',
+            onEachFeature: pop_JaringanSungaiOrde1_4,
+            style: style_JaringanSungaiOrde1_4_0,
+        });
+        bounds_group.addLayer(layer_JaringanSungaiOrde1_4);
+        map.addLayer(layer_JaringanSungaiOrde1_4);
+        function pop_JaringanSungaiOrde2_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nm Sungai</th>\
+                        <td class="visible-with-data" id="Nm Sungai">' + (feature.properties['Nm Sungai'] !== null ? autolinker.link(feature.properties['Nm Sungai'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang</th>\
+                        <td class="visible-with-data" id="Panjang">' + (feature.properties['Panjang'] !== null ? autolinker.link(feature.properties['Panjang'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Orde</th>\
+                        <td class="visible-with-data" id="Orde">' + (feature.properties['Orde'] !== null ? autolinker.link(feature.properties['Orde'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DAS</th>\
+                        <td class="visible-with-data" id="DAS">' + (feature.properties['DAS'] !== null ? autolinker.link(feature.properties['DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td class="visible-with-data" id="WS">' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_JaringanSungaiOrde2_5_0() {
+            return {
+                pane: 'pane_JaringanSungaiOrde2_5',
+                opacity: 1,
+                color: 'rgba(230,152,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JaringanSungaiOrde2_5');
+        map.getPane('pane_JaringanSungaiOrde2_5').style.zIndex = 405;
+        map.getPane('pane_JaringanSungaiOrde2_5').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanSungaiOrde2_5 = new L.geoJson(json_JaringanSungaiOrde2_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JaringanSungaiOrde2_5',
+            layerName: 'layer_JaringanSungaiOrde2_5',
+            pane: 'pane_JaringanSungaiOrde2_5',
+            onEachFeature: pop_JaringanSungaiOrde2_5,
+            style: style_JaringanSungaiOrde2_5_0,
+        });
+        bounds_group.addLayer(layer_JaringanSungaiOrde2_5);
+        map.addLayer(layer_JaringanSungaiOrde2_5);
+        function pop_JaringanSungaiOrde3_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nm Sungai</th>\
+                        <td class="visible-with-data" id="Nm Sungai">' + (feature.properties['Nm Sungai'] !== null ? autolinker.link(feature.properties['Nm Sungai'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Panjang</th>\
+                        <td class="visible-with-data" id="Panjang">' + (feature.properties['Panjang'] !== null ? autolinker.link(feature.properties['Panjang'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Orde</th>\
+                        <td class="visible-with-data" id="Orde">' + (feature.properties['Orde'] !== null ? autolinker.link(feature.properties['Orde'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DAS</th>\
+                        <td class="visible-with-data" id="DAS">' + (feature.properties['DAS'] !== null ? autolinker.link(feature.properties['DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td class="visible-with-data" id="WS">' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_JaringanSungaiOrde3_6_0() {
+            return {
+                pane: 'pane_JaringanSungaiOrde3_6',
+                opacity: 1,
+                color: 'rgba(85,255,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JaringanSungaiOrde3_6');
+        map.getPane('pane_JaringanSungaiOrde3_6').style.zIndex = 406;
+        map.getPane('pane_JaringanSungaiOrde3_6').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanSungaiOrde3_6 = new L.geoJson(json_JaringanSungaiOrde3_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JaringanSungaiOrde3_6',
+            layerName: 'layer_JaringanSungaiOrde3_6',
+            pane: 'pane_JaringanSungaiOrde3_6',
+            onEachFeature: pop_JaringanSungaiOrde3_6,
+            style: style_JaringanSungaiOrde3_6_0,
+        });
+        bounds_group.addLayer(layer_JaringanSungaiOrde3_6);
+        map.addLayer(layer_JaringanSungaiOrde3_6);
+        function pop_JaringanSungaiProgoOrde4_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nm Sungai</th>\
+                        <td class="visible-with-data" id="Nm Sungai">' + (feature.properties['Nm Sungai'] !== null ? autolinker.link(feature.properties['Nm Sungai'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipe</th>\
+                        <td class="visible-with-data" id="Tipe">' + (feature.properties['Tipe'] !== null ? autolinker.link(feature.properties['Tipe'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Orde</th>\
+                        <td>' + (feature.properties['Orde'] !== null ? autolinker.link(feature.properties['Orde'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DAS</th>\
+                        <td>' + (feature.properties['DAS'] !== null ? autolinker.link(feature.properties['DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td>' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_JaringanSungaiProgoOrde4_7_0() {
+            return {
+                pane: 'pane_JaringanSungaiProgoOrde4_7',
+                opacity: 1,
+                color: 'rgba(223,115,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JaringanSungaiProgoOrde4_7');
+        map.getPane('pane_JaringanSungaiProgoOrde4_7').style.zIndex = 407;
+        map.getPane('pane_JaringanSungaiProgoOrde4_7').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanSungaiProgoOrde4_7 = new L.geoJson(json_JaringanSungaiProgoOrde4_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JaringanSungaiProgoOrde4_7',
+            layerName: 'layer_JaringanSungaiProgoOrde4_7',
+            pane: 'pane_JaringanSungaiProgoOrde4_7',
+            onEachFeature: pop_JaringanSungaiProgoOrde4_7,
+            style: style_JaringanSungaiProgoOrde4_7_0,
+        });
+        bounds_group.addLayer(layer_JaringanSungaiProgoOrde4_7);
+        map.addLayer(layer_JaringanSungaiProgoOrde4_7);
+        function pop_JaringanSungaiOpakOrde4_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nm Sungai</th>\
+                        <td class="visible-with-data" id="Nm Sungai">' + (feature.properties['Nm Sungai'] !== null ? autolinker.link(feature.properties['Nm Sungai'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipe</th>\
+                        <td class="visible-with-data" id="Tipe">' + (feature.properties['Tipe'] !== null ? autolinker.link(feature.properties['Tipe'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Orde</th>\
+                        <td>' + (feature.properties['Orde'] !== null ? autolinker.link(feature.properties['Orde'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DAS</th>\
+                        <td>' + (feature.properties['DAS'] !== null ? autolinker.link(feature.properties['DAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WS</th>\
+                        <td>' + (feature.properties['WS'] !== null ? autolinker.link(feature.properties['WS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_JaringanSungaiOpakOrde4_8_0() {
+            return {
+                pane: 'pane_JaringanSungaiOpakOrde4_8',
+                opacity: 1,
+                color: 'rgba(223,115,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_JaringanSungaiOpakOrde4_8');
+        map.getPane('pane_JaringanSungaiOpakOrde4_8').style.zIndex = 408;
+        map.getPane('pane_JaringanSungaiOpakOrde4_8').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanSungaiOpakOrde4_8 = new L.geoJson(json_JaringanSungaiOpakOrde4_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_JaringanSungaiOpakOrde4_8',
+            layerName: 'layer_JaringanSungaiOpakOrde4_8',
+            pane: 'pane_JaringanSungaiOpakOrde4_8',
+            onEachFeature: pop_JaringanSungaiOpakOrde4_8,
+            style: style_JaringanSungaiOpakOrde4_8_0,
+        });
+        bounds_group.addLayer(layer_JaringanSungaiOpakOrde4_8);
+        map.addLayer(layer_JaringanSungaiOpakOrde4_8);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/JaringanSungaiOpakOrde4_8.png" /> Jaringan Sungai Opak Orde 4': layer_JaringanSungaiOpakOrde4_8,'<img src="legend/JaringanSungaiProgoOrde4_7.png" /> Jaringan Sungai Progo Orde 4': layer_JaringanSungaiProgoOrde4_7,'<img src="legend/JaringanSungaiOrde3_6.png" /> Jaringan Sungai Orde 3': layer_JaringanSungaiOrde3_6,'<img src="legend/JaringanSungaiOrde2_5.png" /> Jaringan Sungai Orde 2': layer_JaringanSungaiOrde2_5,'<img src="legend/JaringanSungaiOrde1_4.png" /> Jaringan Sungai Orde 1': layer_JaringanSungaiOrde1_4,'<img src="legend/DaerahAliranSungaiSerang_3.png" /> Daerah Aliran Sungai Serang': layer_DaerahAliranSungaiSerang_3,'<img src="legend/DaerahAliranSungaiOpak_2.png" /> Daerah Aliran Sungai Opak': layer_DaerahAliranSungaiOpak_2,'<img src="legend/DaerahAliranSungaiProgo_1.png" /> Daerah Aliran Sungai Progo': layer_DaerahAliranSungaiProgo_1,"Google Satelite": layer_GoogleSatelite_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

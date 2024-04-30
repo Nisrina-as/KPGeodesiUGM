@@ -7,17 +7,38 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="crossorigin=""></script>
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"crossorigin="anonymous">
         <style>
-        #map {
-            height: calc(97vh);
+        html, body, #map {
+            width: 100%;
+            height: 96.82%;
+            padding: 0;
+            margin: 0;
+        }
+        a {
+            padding: 35%;
         }
         </style>
         <title></title>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">WebGIS Area Sempadan Wadaslintang</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            </div>
+            </nav>
+
         <div id="map">
         </div>
+        
+
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
@@ -73,9 +94,11 @@
         <script src="data/GarisSempadanSaluranSekunderLesung_44.js"></script>
         <script>
         var map = L.map('map', {
-            zoomControl:true, maxZoom:25, minZoom:1
-        }).fitBounds([[-7.6822592160376795,109.78751119018035],[-7.656991867761705,109.82081386908818]]);
+            zoomControl:true, maxZoom:20, minZoom:1
+        }).fitBounds([[-7.810122173085229,109.60685675970745],[-7.607983386877431,109.90287476742921]]);
         var hash = new L.Hash(map);
+        
+
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         function removeEmptyRowsFromPopupContent(content, feature) {
@@ -111,7 +134,7 @@
             opacity: 1.0,
             attribution: '',
             minZoom: 1,
-            maxZoom: 25,
+            maxZoom: 20,
             minNativeZoom: 0,
             maxNativeZoom: 18
         });
@@ -532,8 +555,7 @@
                         <td class="visible-with-data" id="Status">' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Penggunaan</th>\
-                        <td class="visible-with-data" id="Penggunaan">' + (feature.properties['Penggunaan'] !== null ? autolinker.link(feature.properties['Penggunaan'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Pengguna_1'] !== null ? autolinker.link(feature.properties['Pengguna_1'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -987,8 +1009,7 @@
                         <td class="visible-with-data" id="Status">' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Penggunaan</th>\
-                        <td class="visible-with-data" id="Penggunaan">' + (feature.properties['Penggunaan'] !== null ? autolinker.link(feature.properties['Penggunaan'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Pengguna_1'] !== null ? autolinker.link(feature.properties['Pengguna_1'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -1070,8 +1091,7 @@
                         <td class="visible-with-data" id="Status">' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Penggunaan</th>\
-                        <td class="visible-with-data" id="Penggunaan">' + (feature.properties['Penggunaan'] !== null ? autolinker.link(feature.properties['Penggunaan'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Pengguna_1'] !== null ? autolinker.link(feature.properties['Pengguna_1'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -1138,7 +1158,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderKuwarasan_12');
@@ -1146,7 +1166,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderKuwarasan_12').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderKuwarasan_12 = new L.geoJson(json_LahanTerindikasiSaluranSekunderKuwarasan_12, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderKuwarasan_12',
             layerName: 'layer_LahanTerindikasiSaluranSekunderKuwarasan_12',
             pane: 'pane_LahanTerindikasiSaluranSekunderKuwarasan_12',
@@ -1183,7 +1203,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderSeliling_13');
@@ -1191,7 +1211,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderSeliling_13').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderSeliling_13 = new L.geoJson(json_LahanTerindikasiSaluranSekunderSeliling_13, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderSeliling_13',
             layerName: 'layer_LahanTerindikasiSaluranSekunderSeliling_13',
             pane: 'pane_LahanTerindikasiSaluranSekunderSeliling_13',
@@ -1228,7 +1248,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderPesucenBarat_14');
@@ -1236,7 +1256,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderPesucenBarat_14').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderPesucenBarat_14 = new L.geoJson(json_LahanTerindikasiSaluranSekunderPesucenBarat_14, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderPesucenBarat_14',
             layerName: 'layer_LahanTerindikasiSaluranSekunderPesucenBarat_14',
             pane: 'pane_LahanTerindikasiSaluranSekunderPesucenBarat_14',
@@ -1273,7 +1293,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderBlater_15');
@@ -1281,7 +1301,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderBlater_15').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderBlater_15 = new L.geoJson(json_LahanTerindikasiSaluranSekunderBlater_15, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderBlater_15',
             layerName: 'layer_LahanTerindikasiSaluranSekunderBlater_15',
             pane: 'pane_LahanTerindikasiSaluranSekunderBlater_15',
@@ -1318,7 +1338,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderPrembun_16');
@@ -1326,7 +1346,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderPrembun_16').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderPrembun_16 = new L.geoJson(json_LahanTerindikasiSaluranSekunderPrembun_16, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderPrembun_16',
             layerName: 'layer_LahanTerindikasiSaluranSekunderPrembun_16',
             pane: 'pane_LahanTerindikasiSaluranSekunderPrembun_16',
@@ -1363,7 +1383,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderKrogosingan_17');
@@ -1371,7 +1391,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderKrogosingan_17').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderKrogosingan_17 = new L.geoJson(json_LahanTerindikasiSaluranSekunderKrogosingan_17, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderKrogosingan_17',
             layerName: 'layer_LahanTerindikasiSaluranSekunderKrogosingan_17',
             pane: 'pane_LahanTerindikasiSaluranSekunderKrogosingan_17',
@@ -1408,7 +1428,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderKedungTawon_18');
@@ -1416,7 +1436,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderKedungTawon_18').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderKedungTawon_18 = new L.geoJson(json_LahanTerindikasiSaluranSekunderKedungTawon_18, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderKedungTawon_18',
             layerName: 'layer_LahanTerindikasiSaluranSekunderKedungTawon_18',
             pane: 'pane_LahanTerindikasiSaluranSekunderKedungTawon_18',
@@ -1453,7 +1473,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderBintoro_19');
@@ -1461,7 +1481,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderBintoro_19').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderBintoro_19 = new L.geoJson(json_LahanTerindikasiSaluranSekunderBintoro_19, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderBintoro_19',
             layerName: 'layer_LahanTerindikasiSaluranSekunderBintoro_19',
             pane: 'pane_LahanTerindikasiSaluranSekunderBintoro_19',
@@ -1498,7 +1518,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderMerdenKanan_20');
@@ -1506,7 +1526,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderMerdenKanan_20').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderMerdenKanan_20 = new L.geoJson(json_LahanTerindikasiSaluranSekunderMerdenKanan_20, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderMerdenKanan_20',
             layerName: 'layer_LahanTerindikasiSaluranSekunderMerdenKanan_20',
             pane: 'pane_LahanTerindikasiSaluranSekunderMerdenKanan_20',
@@ -1543,7 +1563,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderMerden_21');
@@ -1551,7 +1571,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderMerden_21').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderMerden_21 = new L.geoJson(json_LahanTerindikasiSaluranSekunderMerden_21, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderMerden_21',
             layerName: 'layer_LahanTerindikasiSaluranSekunderMerden_21',
             pane: 'pane_LahanTerindikasiSaluranSekunderMerden_21',
@@ -1588,7 +1608,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(246,197,103,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_LahanTerindikasiSaluranSekunderLesung_22');
@@ -1596,7 +1616,7 @@
         map.getPane('pane_LahanTerindikasiSaluranSekunderLesung_22').style['mix-blend-mode'] = 'normal';
         var layer_LahanTerindikasiSaluranSekunderLesung_22 = new L.geoJson(json_LahanTerindikasiSaluranSekunderLesung_22, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_LahanTerindikasiSaluranSekunderLesung_22',
             layerName: 'layer_LahanTerindikasiSaluranSekunderLesung_22',
             pane: 'pane_LahanTerindikasiSaluranSekunderLesung_22',
@@ -1628,7 +1648,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderPrembun_23');
@@ -1636,7 +1656,7 @@
         map.getPane('pane_SaluranSekunderPrembun_23').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderPrembun_23 = new L.geoJson(json_SaluranSekunderPrembun_23, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderPrembun_23',
             layerName: 'layer_SaluranSekunderPrembun_23',
             pane: 'pane_SaluranSekunderPrembun_23',
@@ -1668,7 +1688,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderKrogosingan_24');
@@ -1676,7 +1696,7 @@
         map.getPane('pane_SaluranSekunderKrogosingan_24').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderKrogosingan_24 = new L.geoJson(json_SaluranSekunderKrogosingan_24, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderKrogosingan_24',
             layerName: 'layer_SaluranSekunderKrogosingan_24',
             pane: 'pane_SaluranSekunderKrogosingan_24',
@@ -1708,7 +1728,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderKedungTawon_25');
@@ -1716,7 +1736,7 @@
         map.getPane('pane_SaluranSekunderKedungTawon_25').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderKedungTawon_25 = new L.geoJson(json_SaluranSekunderKedungTawon_25, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderKedungTawon_25',
             layerName: 'layer_SaluranSekunderKedungTawon_25',
             pane: 'pane_SaluranSekunderKedungTawon_25',
@@ -1748,7 +1768,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_saluran_SekunderBintoro_26');
@@ -1756,7 +1776,7 @@
         map.getPane('pane_saluran_SekunderBintoro_26').style['mix-blend-mode'] = 'normal';
         var layer_saluran_SekunderBintoro_26 = new L.geoJson(json_saluran_SekunderBintoro_26, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_saluran_SekunderBintoro_26',
             layerName: 'layer_saluran_SekunderBintoro_26',
             pane: 'pane_saluran_SekunderBintoro_26',
@@ -1788,7 +1808,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderKuwarasan_27');
@@ -1796,7 +1816,7 @@
         map.getPane('pane_SaluranSekunderKuwarasan_27').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderKuwarasan_27 = new L.geoJson(json_SaluranSekunderKuwarasan_27, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderKuwarasan_27',
             layerName: 'layer_SaluranSekunderKuwarasan_27',
             pane: 'pane_SaluranSekunderKuwarasan_27',
@@ -1828,7 +1848,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderSeliling_28');
@@ -1836,7 +1856,7 @@
         map.getPane('pane_SaluranSekunderSeliling_28').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderSeliling_28 = new L.geoJson(json_SaluranSekunderSeliling_28, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderSeliling_28',
             layerName: 'layer_SaluranSekunderSeliling_28',
             pane: 'pane_SaluranSekunderSeliling_28',
@@ -1868,7 +1888,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderPesucenBarat_29');
@@ -1876,7 +1896,7 @@
         map.getPane('pane_SaluranSekunderPesucenBarat_29').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderPesucenBarat_29 = new L.geoJson(json_SaluranSekunderPesucenBarat_29, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderPesucenBarat_29',
             layerName: 'layer_SaluranSekunderPesucenBarat_29',
             pane: 'pane_SaluranSekunderPesucenBarat_29',
@@ -1929,7 +1949,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_saluranSekunderBlater_30');
@@ -1937,7 +1957,7 @@
         map.getPane('pane_saluranSekunderBlater_30').style['mix-blend-mode'] = 'normal';
         var layer_saluranSekunderBlater_30 = new L.geoJson(json_saluranSekunderBlater_30, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_saluranSekunderBlater_30',
             layerName: 'layer_saluranSekunderBlater_30',
             pane: 'pane_saluranSekunderBlater_30',
@@ -1990,7 +2010,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderMerdenKanan_31');
@@ -1998,7 +2018,7 @@
         map.getPane('pane_SaluranSekunderMerdenKanan_31').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderMerdenKanan_31 = new L.geoJson(json_SaluranSekunderMerdenKanan_31, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderMerdenKanan_31',
             layerName: 'layer_SaluranSekunderMerdenKanan_31',
             pane: 'pane_SaluranSekunderMerdenKanan_31',
@@ -2030,7 +2050,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderMerden_32');
@@ -2038,7 +2058,7 @@
         map.getPane('pane_SaluranSekunderMerden_32').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderMerden_32 = new L.geoJson(json_SaluranSekunderMerden_32, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderMerden_32',
             layerName: 'layer_SaluranSekunderMerden_32',
             pane: 'pane_SaluranSekunderMerden_32',
@@ -2070,7 +2090,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_SaluranSekunderLesung_33');
@@ -2078,7 +2098,7 @@
         map.getPane('pane_SaluranSekunderLesung_33').style['mix-blend-mode'] = 'normal';
         var layer_SaluranSekunderLesung_33 = new L.geoJson(json_SaluranSekunderLesung_33, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_SaluranSekunderLesung_33',
             layerName: 'layer_SaluranSekunderLesung_33',
             pane: 'pane_SaluranSekunderLesung_33',
@@ -2110,7 +2130,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderKuwarasan_34');
@@ -2118,7 +2138,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderKuwarasan_34').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderKuwarasan_34 = new L.geoJson(json_GarisSempadanSaluranSekunderKuwarasan_34, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderKuwarasan_34',
             layerName: 'layer_GarisSempadanSaluranSekunderKuwarasan_34',
             pane: 'pane_GarisSempadanSaluranSekunderKuwarasan_34',
@@ -2150,7 +2170,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderSeliling_35');
@@ -2158,7 +2178,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderSeliling_35').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderSeliling_35 = new L.geoJson(json_GarisSempadanSaluranSekunderSeliling_35, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderSeliling_35',
             layerName: 'layer_GarisSempadanSaluranSekunderSeliling_35',
             pane: 'pane_GarisSempadanSaluranSekunderSeliling_35',
@@ -2190,7 +2210,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderPesucenBarat_36');
@@ -2198,7 +2218,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderPesucenBarat_36').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderPesucenBarat_36 = new L.geoJson(json_GarisSempadanSaluranSekunderPesucenBarat_36, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderPesucenBarat_36',
             layerName: 'layer_GarisSempadanSaluranSekunderPesucenBarat_36',
             pane: 'pane_GarisSempadanSaluranSekunderPesucenBarat_36',
@@ -2230,7 +2250,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderBlater_37');
@@ -2238,7 +2258,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderBlater_37').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderBlater_37 = new L.geoJson(json_GarisSempadanSaluranSekunderBlater_37, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderBlater_37',
             layerName: 'layer_GarisSempadanSaluranSekunderBlater_37',
             pane: 'pane_GarisSempadanSaluranSekunderBlater_37',
@@ -2270,7 +2290,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderPrembun_38');
@@ -2278,7 +2298,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderPrembun_38').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderPrembun_38 = new L.geoJson(json_GarisSempadanSaluranSekunderPrembun_38, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderPrembun_38',
             layerName: 'layer_GarisSempadanSaluranSekunderPrembun_38',
             pane: 'pane_GarisSempadanSaluranSekunderPrembun_38',
@@ -2310,7 +2330,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderKrogosingan_39');
@@ -2318,7 +2338,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderKrogosingan_39').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderKrogosingan_39 = new L.geoJson(json_GarisSempadanSaluranSekunderKrogosingan_39, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderKrogosingan_39',
             layerName: 'layer_GarisSempadanSaluranSekunderKrogosingan_39',
             pane: 'pane_GarisSempadanSaluranSekunderKrogosingan_39',
@@ -2350,7 +2370,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderKedungTawon_40');
@@ -2358,7 +2378,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderKedungTawon_40').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderKedungTawon_40 = new L.geoJson(json_GarisSempadanSaluranSekunderKedungTawon_40, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderKedungTawon_40',
             layerName: 'layer_GarisSempadanSaluranSekunderKedungTawon_40',
             pane: 'pane_GarisSempadanSaluranSekunderKedungTawon_40',
@@ -2390,7 +2410,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderBintoro_41');
@@ -2398,7 +2418,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderBintoro_41').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderBintoro_41 = new L.geoJson(json_GarisSempadanSaluranSekunderBintoro_41, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderBintoro_41',
             layerName: 'layer_GarisSempadanSaluranSekunderBintoro_41',
             pane: 'pane_GarisSempadanSaluranSekunderBintoro_41',
@@ -2430,7 +2450,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderMerdenKanan_42');
@@ -2438,7 +2458,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderMerdenKanan_42').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderMerdenKanan_42 = new L.geoJson(json_GarisSempadanSaluranSekunderMerdenKanan_42, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderMerdenKanan_42',
             layerName: 'layer_GarisSempadanSaluranSekunderMerdenKanan_42',
             pane: 'pane_GarisSempadanSaluranSekunderMerdenKanan_42',
@@ -2470,7 +2490,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderMerden_43');
@@ -2478,7 +2498,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderMerden_43').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderMerden_43 = new L.geoJson(json_GarisSempadanSaluranSekunderMerden_43, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderMerden_43',
             layerName: 'layer_GarisSempadanSaluranSekunderMerden_43',
             pane: 'pane_GarisSempadanSaluranSekunderMerden_43',
@@ -2510,7 +2530,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_GarisSempadanSaluranSekunderLesung_44');
@@ -2518,7 +2538,7 @@
         map.getPane('pane_GarisSempadanSaluranSekunderLesung_44').style['mix-blend-mode'] = 'normal';
         var layer_GarisSempadanSaluranSekunderLesung_44 = new L.geoJson(json_GarisSempadanSaluranSekunderLesung_44, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_GarisSempadanSaluranSekunderLesung_44',
             layerName: 'layer_GarisSempadanSaluranSekunderLesung_44',
             pane: 'pane_GarisSempadanSaluranSekunderLesung_44',
@@ -2528,8 +2548,9 @@
         bounds_group.addLayer(layer_GarisSempadanSaluranSekunderLesung_44);
         map.addLayer(layer_GarisSempadanSaluranSekunderLesung_44);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/GarisSempadanSaluranSekunderLesung_44.png" /> Garis Sempadan Saluran Sekunder Lesung': layer_GarisSempadanSaluranSekunderLesung_44,'<img src="legend/GarisSempadanSaluranSekunderMerden_43.png" /> Garis Sempadan Saluran Sekunder Merden': layer_GarisSempadanSaluranSekunderMerden_43,'<img src="legend/GarisSempadanSaluranSekunderMerdenKanan_42.png" /> Garis Sempadan Saluran Sekunder Merden Kanan': layer_GarisSempadanSaluranSekunderMerdenKanan_42,'<img src="legend/GarisSempadanSaluranSekunderBintoro_41.png" /> Garis Sempadan Saluran Sekunder Bintoro': layer_GarisSempadanSaluranSekunderBintoro_41,'<img src="legend/GarisSempadanSaluranSekunderKedungTawon_40.png" /> Garis Sempadan Saluran Sekunder Kedung Tawon': layer_GarisSempadanSaluranSekunderKedungTawon_40,'<img src="legend/GarisSempadanSaluranSekunderKrogosingan_39.png" /> Garis Sempadan Saluran Sekunder Krogosingan': layer_GarisSempadanSaluranSekunderKrogosingan_39,'<img src="legend/GarisSempadanSaluranSekunderPrembun_38.png" /> Garis Sempadan Saluran Sekunder Prembun': layer_GarisSempadanSaluranSekunderPrembun_38,'<img src="legend/GarisSempadanSaluranSekunderBlater_37.png" /> Garis Sempadan Saluran Sekunder Blater': layer_GarisSempadanSaluranSekunderBlater_37,'<img src="legend/GarisSempadanSaluranSekunderPesucenBarat_36.png" /> Garis Sempadan Saluran Sekunder Pesucen Barat': layer_GarisSempadanSaluranSekunderPesucenBarat_36,'<img src="legend/GarisSempadanSaluranSekunderSeliling_35.png" /> Garis Sempadan Saluran Sekunder Seliling': layer_GarisSempadanSaluranSekunderSeliling_35,'<img src="legend/GarisSempadanSaluranSekunderKuwarasan_34.png" /> Garis Sempadan Saluran Sekunder Kuwarasan': layer_GarisSempadanSaluranSekunderKuwarasan_34,'<img src="legend/SaluranSekunderLesung_33.png" /> Saluran Sekunder Lesung': layer_SaluranSekunderLesung_33,'<img src="legend/SaluranSekunderMerden_32.png" /> Saluran Sekunder Merden': layer_SaluranSekunderMerden_32,'<img src="legend/SaluranSekunderMerdenKanan_31.png" /> Saluran Sekunder Merden Kanan': layer_SaluranSekunderMerdenKanan_31,'<img src="legend/saluranSekunderBlater_30.png" /> saluran Sekunder Blater': layer_saluranSekunderBlater_30,'<img src="legend/SaluranSekunderPesucenBarat_29.png" /> Saluran Sekunder Pesucen Barat': layer_SaluranSekunderPesucenBarat_29,'<img src="legend/SaluranSekunderSeliling_28.png" /> Saluran Sekunder Seliling': layer_SaluranSekunderSeliling_28,'<img src="legend/SaluranSekunderKuwarasan_27.png" /> Saluran Sekunder Kuwarasan': layer_SaluranSekunderKuwarasan_27,'<img src="legend/saluran_SekunderBintoro_26.png" /> saluran_SekunderBintoro': layer_saluran_SekunderBintoro_26,'<img src="legend/SaluranSekunderKedungTawon_25.png" /> Saluran Sekunder Kedung Tawon': layer_SaluranSekunderKedungTawon_25,'<img src="legend/SaluranSekunderKrogosingan_24.png" /> Saluran Sekunder Krogosingan': layer_SaluranSekunderKrogosingan_24,'<img src="legend/SaluranSekunderPrembun_23.png" /> Saluran Sekunder Prembun': layer_SaluranSekunderPrembun_23,'<img src="legend/LahanTerindikasiSaluranSekunderLesung_22.png" /> Lahan Terindikasi Saluran Sekunder Lesung': layer_LahanTerindikasiSaluranSekunderLesung_22,'<img src="legend/LahanTerindikasiSaluranSekunderMerden_21.png" /> Lahan Terindikasi Saluran Sekunder Merden': layer_LahanTerindikasiSaluranSekunderMerden_21,'<img src="legend/LahanTerindikasiSaluranSekunderMerdenKanan_20.png" /> Lahan Terindikasi Saluran Sekunder Merden Kanan': layer_LahanTerindikasiSaluranSekunderMerdenKanan_20,'<img src="legend/LahanTerindikasiSaluranSekunderBintoro_19.png" /> Lahan Terindikasi Saluran Sekunder Bintoro': layer_LahanTerindikasiSaluranSekunderBintoro_19,'<img src="legend/LahanTerindikasiSaluranSekunderKedungTawon_18.png" /> Lahan Terindikasi Saluran Sekunder Kedung Tawon': layer_LahanTerindikasiSaluranSekunderKedungTawon_18,'<img src="legend/LahanTerindikasiSaluranSekunderKrogosingan_17.png" /> Lahan Terindikasi Saluran Sekunder Krogosingan': layer_LahanTerindikasiSaluranSekunderKrogosingan_17,'<img src="legend/LahanTerindikasiSaluranSekunderPrembun_16.png" /> Lahan Terindikasi Saluran Sekunder Prembun': layer_LahanTerindikasiSaluranSekunderPrembun_16,'<img src="legend/LahanTerindikasiSaluranSekunderBlater_15.png" /> Lahan Terindikasi Saluran Sekunder Blater': layer_LahanTerindikasiSaluranSekunderBlater_15,'<img src="legend/LahanTerindikasiSaluranSekunderPesucenBarat_14.png" /> Lahan Terindikasi Saluran Sekunder Pesucen Barat': layer_LahanTerindikasiSaluranSekunderPesucenBarat_14,'<img src="legend/LahanTerindikasiSaluranSekunderSeliling_13.png" /> Lahan Terindikasi Saluran Sekunder Seliling': layer_LahanTerindikasiSaluranSekunderSeliling_13,'<img src="legend/LahanTerindikasiSaluranSekunderKuwarasan_12.png" /> Lahan Terindikasi Saluran Sekunder Kuwarasan': layer_LahanTerindikasiSaluranSekunderKuwarasan_12,'<img src="legend/BangunanSaluranSekunderLesung_11.png" /> Bangunan Saluran Sekunder Lesung': layer_BangunanSaluranSekunderLesung_11,'<img src="legend/BangunanSaluranSekunderMerden_10.png" /> Bangunan Saluran Sekunder Merden': layer_BangunanSaluranSekunderMerden_10,'<img src="legend/BangunanSaluranSekunderMerdenKanan_9.png" /> Bangunan Saluran Sekunder Merden Kanan': layer_BangunanSaluranSekunderMerdenKanan_9,'<img src="legend/BangunanSaluranSekunderBintoro_8.png" /> Bangunan Saluran Sekunder Bintoro': layer_BangunanSaluranSekunderBintoro_8,'<img src="legend/BangunanSaluranSekunderKedungTawon_7.png" /> Bangunan Saluran Sekunder Kedung Tawon': layer_BangunanSaluranSekunderKedungTawon_7,'<img src="legend/BangunanSaluranSekunderKrogosingan_6.png" /> Bangunan Saluran Sekunder Krogosingan': layer_BangunanSaluranSekunderKrogosingan_6,'<img src="legend/BangunanSaluranSekunderPrembun_5.png" /> Bangunan Saluran Sekunder Prembun': layer_BangunanSaluranSekunderPrembun_5,'<img src="legend/BangunanSaluranSekunderBlater_4.png" /> Bangunan Saluran Sekunder Blater': layer_BangunanSaluranSekunderBlater_4,'<img src="legend/BangunanSaluranSekunderPesucenBarat_3.png" /> Bangunan Saluran Sekunder Pesucen Barat': layer_BangunanSaluranSekunderPesucenBarat_3,'<img src="legend/BangunanSaluranSekunderSeliling_2.png" /> Bangunan Saluran Sekunder Seliling': layer_BangunanSaluranSekunderSeliling_2,'<img src="legend/BangunanSaluranSekunderKuwarasan_1.png" /> Bangunan Saluran Sekunder Kuwarasan': layer_BangunanSaluranSekunderKuwarasan_1,"Google Satelite": layer_GoogleSatelite_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/GarisSempadanSaluranSekunderLesung_44.png" /> Garis Sempadan Saluran Sekunder Lesung': layer_GarisSempadanSaluranSekunderLesung_44,'<img src="legend/GarisSempadanSaluranSekunderMerden_43.png" /> Garis Sempadan Saluran Sekunder Merden': layer_GarisSempadanSaluranSekunderMerden_43,'<img src="legend/GarisSempadanSaluranSekunderMerdenKanan_42.png" /> Garis Sempadan Saluran Sekunder Merden Kanan': layer_GarisSempadanSaluranSekunderMerdenKanan_42,'<img src="legend/GarisSempadanSaluranSekunderBintoro_41.png" /> Garis Sempadan Saluran Sekunder Bintoro': layer_GarisSempadanSaluranSekunderBintoro_41,'<img src="legend/GarisSempadanSaluranSekunderKedungTawon_40.png" /> Garis Sempadan Saluran Sekunder Kedung Tawon': layer_GarisSempadanSaluranSekunderKedungTawon_40,'<img src="legend/GarisSempadanSaluranSekunderKrogosingan_39.png" /> Garis Sempadan Saluran Sekunder Krogosingan': layer_GarisSempadanSaluranSekunderKrogosingan_39,'<img src="legend/GarisSempadanSaluranSekunderPrembun_38.png" /> Garis Sempadan Saluran Sekunder Prembun': layer_GarisSempadanSaluranSekunderPrembun_38,'<img src="legend/GarisSempadanSaluranSekunderBlater_37.png" /> Garis Sempadan Saluran Sekunder Blater': layer_GarisSempadanSaluranSekunderBlater_37,'<img src="legend/GarisSempadanSaluranSekunderPesucenBarat_36.png" /> Garis Sempadan Saluran Sekunder Pesucen Barat': layer_GarisSempadanSaluranSekunderPesucenBarat_36,'<img src="legend/GarisSempadanSaluranSekunderSeliling_35.png" /> Garis Sempadan Saluran Sekunder Seliling': layer_GarisSempadanSaluranSekunderSeliling_35,'<img src="legend/GarisSempadanSaluranSekunderKuwarasan_34.png" /> Garis Sempadan Saluran Sekunder Kuwarasan': layer_GarisSempadanSaluranSekunderKuwarasan_34,'<img src="legend/SaluranSekunderLesung_33.png" /> Saluran Sekunder Lesung': layer_SaluranSekunderLesung_33,'<img src="legend/SaluranSekunderMerden_32.png" /> Saluran Sekunder Merden': layer_SaluranSekunderMerden_32,'<img src="legend/SaluranSekunderMerdenKanan_31.png" /> Saluran Sekunder Merden Kanan': layer_SaluranSekunderMerdenKanan_31,'<img src="legend/saluranSekunderBlater_30.png" /> saluran Sekunder Blater': layer_saluranSekunderBlater_30,'<img src="legend/SaluranSekunderPesucenBarat_29.png" /> Saluran Sekunder Pesucen Barat': layer_SaluranSekunderPesucenBarat_29,'<img src="legend/SaluranSekunderSeliling_28.png" /> Saluran Sekunder Seliling': layer_SaluranSekunderSeliling_28,'<img src="legend/SaluranSekunderKuwarasan_27.png" /> Saluran Sekunder Kuwarasan': layer_SaluranSekunderKuwarasan_27,'<img src="legend/saluran_SekunderBintoro_26.png" /> saluran_SekunderBintoro': layer_saluran_SekunderBintoro_26,'<img src="legend/SaluranSekunderKedungTawon_25.png" /> Saluran Sekunder Kedung Tawon': layer_SaluranSekunderKedungTawon_25,'<img src="legend/SaluranSekunderKrogosingan_24.png" /> Saluran Sekunder Krogosingan': layer_SaluranSekunderKrogosingan_24,'<img src="legend/SaluranSekunderPrembun_23.png" /> Saluran Sekunder Prembun': layer_SaluranSekunderPrembun_23,'<img src="legend/LahanTerindikasiSaluranSekunderLesung_22.png" /> Lahan Terindikasi Saluran Sekunder Lesung': layer_LahanTerindikasiSaluranSekunderLesung_22,'<img src="legend/LahanTerindikasiSaluranSekunderMerden_21.png" /> Lahan Terindikasi Saluran Sekunder Merden': layer_LahanTerindikasiSaluranSekunderMerden_21,'<img src="legend/LahanTerindikasiSaluranSekunderMerdenKanan_20.png" /> Lahan Terindikasi Saluran Sekunder Merden Kanan': layer_LahanTerindikasiSaluranSekunderMerdenKanan_20,'<img src="legend/LahanTerindikasiSaluranSekunderBintoro_19.png" /> Lahan Terindikasi Saluran Sekunder Bintoro': layer_LahanTerindikasiSaluranSekunderBintoro_19,'<img src="legend/LahanTerindikasiSaluranSekunderKedungTawon_18.png" /> Lahan Terindikasi Saluran Sekunder Kedung Tawon': layer_LahanTerindikasiSaluranSekunderKedungTawon_18,'<img src="legend/LahanTerindikasiSaluranSekunderKrogosingan_17.png" /> Lahan Terindikasi Saluran Sekunder Krogosingan': layer_LahanTerindikasiSaluranSekunderKrogosingan_17,'<img src="legend/LahanTerindikasiSaluranSekunderPrembun_16.png" /> Lahan Terindikasi Saluran Sekunder Prembun': layer_LahanTerindikasiSaluranSekunderPrembun_16,'<img src="legend/LahanTerindikasiSaluranSekunderBlater_15.png" /> Lahan Terindikasi Saluran Sekunder Blater': layer_LahanTerindikasiSaluranSekunderBlater_15,'<img src="legend/LahanTerindikasiSaluranSekunderPesucenBarat_14.png" /> Lahan Terindikasi Saluran Sekunder Pesucen Barat': layer_LahanTerindikasiSaluranSekunderPesucenBarat_14,'<img src="legend/LahanTerindikasiSaluranSekunderSeliling_13.png" /> Lahan Terindikasi Saluran Sekunder Seliling': layer_LahanTerindikasiSaluranSekunderSeliling_13,'<img src="legend/LahanTerindikasiSaluranSekunderKuwarasan_12.png" /> Lahan Terindikasi Saluran Sekunder Kuwarasan': layer_LahanTerindikasiSaluranSekunderKuwarasan_12,'<img src="legend/BangunanSaluranSekunderLesung_11.png" /> Bangunan Saluran Sekunder Lesung': layer_BangunanSaluranSekunderLesung_11,'<img src="legend/BangunanSaluranSekunderMerden_10.png" /> Bangunan Saluran Sekunder Merden': layer_BangunanSaluranSekunderMerden_10,'<img src="legend/BangunanSaluranSekunderMerdenKanan_9.png" /> Bangunan Saluran Sekunder Merden Kanan': layer_BangunanSaluranSekunderMerdenKanan_9,'<img src="legend/BangunanSaluranSekunderBintoro_8.png" /> Bangunan Saluran Sekunder Bintoro': layer_BangunanSaluranSekunderBintoro_8,'<img src="legend/BangunanSaluranSekunderKedungTawon_7.png" /> Bangunan Saluran Sekunder Kedung Tawon': layer_BangunanSaluranSekunderKedungTawon_7,'<img src="legend/BangunanSaluranSekunderKrogosingan_6.png" /> Bangunan Saluran Sekunder Krogosingan': layer_BangunanSaluranSekunderKrogosingan_6,'<img src="legend/BangunanSaluranSekunderPrembun_5.png" /> Bangunan Saluran Sekunder Prembun': layer_BangunanSaluranSekunderPrembun_5,'<img src="legend/BangunanSaluranSekunderBlater_4.png" /> Bangunan Saluran Sekunder Blater': layer_BangunanSaluranSekunderBlater_4,'<img src="legend/BangunanSaluranSekunderPesucenBarat_3.png" /> Bangunan Saluran Sekunder Pesucen Barat': layer_BangunanSaluranSekunderPesucenBarat_3,'<img src="legend/BangunanSaluranSekunderSeliling_2.png" /> Bangunan Saluran Sekunder Seliling': layer_BangunanSaluranSekunderSeliling_2,'<img src="legend/BangunanSaluranSekunderKuwarasan_1.png" /> Bangunan Saluran Sekunder Kuwarasan': layer_BangunanSaluranSekunderKuwarasan_1,"Google Satelite": layer_GoogleSatelite_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"crossorigin="anonymous"></script>
     </body>
 </html>
